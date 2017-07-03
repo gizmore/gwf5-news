@@ -1,4 +1,11 @@
 <?php
+/**
+ * News database.
+ * @author gizmore
+ * @version 5.0
+ * @since 2.0
+ * @see GWF_NewsText
+ */
 final class GWF_News extends GDO
 {
 	################
@@ -24,13 +31,19 @@ final class GWF_News extends GDO
 	##############
 	### Getter ###
 	##############
-	public function isSent() { return $this->getSentDate() !== null; }
 	public function getID() { return $this->getVar('news_id'); }
+	public function isSent() { return $this->getSentDate() !== null; }
+	/**
+	 * @return GWF_Category
+	 */
 	public function getCategory() { return $this->getValue('news_category'); }
 	public function getCategoryID() { return $this->getVar('news_category'); }
 	public function getVisible() { return $this->getVar('news_visible') === '1'; }
 	public function getSentDate() { return $this->getVar('news_sent'); }
 	public function getCreateDate() { return $this->getVar('news_created'); }
+	/**
+	 * @return GWF_User
+	 */
 	public function getCreator() { return $this->getValue('news_creator'); }
 	public function getCreatorID() { return $this->getVar('news_creator'); }
 	
@@ -43,19 +56,21 @@ final class GWF_News extends GDO
 	public function getTextVar(string $key) { return $this->getText(GWF_Trans::$ISO)->getVar($key); }
 	public function getTextValue(string $key) { return $this->getText(GWF_Trans::$ISO)->getValue($key); }
 	
-	/**
-	 * @return GWF_NewsText[]
-	 */
-	public function getTexts()
+	public function displayMessage()
 	{
-		if (!($cache = $this->tempGet('newstexts')))
-		{
-			$query = GWF_NewsText::table()->select('newstext_lang, *');
-			$query->where("newstext_news=".$this->getID());
-			$cache = $query->exec()->fetchAllArray2dObject();
-			$this->tempSet('newstexts', $cache);
-		}
-		return $cache;
+		$text = $this->getTxt();
+		return $text->gdoColumn('newstext_message')->value($text->getMessage())->renderCell();
+	}
+
+	###################
+	### Translation ###
+	###################
+	/**
+	 * @return GWF_NewsText
+	 */
+	public function getTxt()
+	{
+		return $this->getText(GWF_Trans::$ISO);
 	}
 	
 	/**
@@ -71,14 +86,23 @@ final class GWF_News extends GDO
 		}
 		if ($fallback)
 		{
-			if (isset($texts[GWF_LANGUAGE]))
-			{
-				return $texts[GWF_LANGUAGE];
-			}
-			else
-			{
-				return array_shift($texts);
-			}
+			return isset($texts[GWF_LANGUAGE]) ? $texts[GWF_LANGUAGE] : array_shift($texts);
 		}
 	}
+
+	/**
+	 * @return GWF_NewsText[]
+	 */
+	public function getTexts()
+	{
+		if (!($cache = $this->tempGet('newstexts')))
+		{
+			$query = GWF_NewsText::table()->select('newstext_lang, gwf_newstext.*');
+			$query->where("newstext_news=".$this->getID());
+			$cache = $query->exec()->fetchAllArray2dObject();
+			$this->tempSet('newstexts', $cache);
+		}
+		return $cache;
+	}
+	
 }

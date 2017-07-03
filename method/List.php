@@ -11,7 +11,7 @@ class News_List extends GWF_MethodQueryList
 	
 	public function filterNewsQuery(GDOQuery $query)
 	{
-		return $query->where('news_deleted IS NULL AND news_visible');
+		return $query->where('news_visible');
 	}
 	
 }

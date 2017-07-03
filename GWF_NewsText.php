@@ -19,4 +19,5 @@ final class GWF_NewsText extends GDO
 	
 	public function getTitle() { return $this->getVar('newstext_title'); }
 	public function getMessage() { return $this->getVar('newstext_message'); }
+	
 }

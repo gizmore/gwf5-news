@@ -90,14 +90,16 @@ final class News_Write extends GWF_MethodForm
 			
 			$form->withGDOValuesFrom($this->news);
 		}
-		
 	}
 	
 	public function formValidated(GWF_Form $form)
 	{
-		$news = GWF_News::blank(array(
-			'news_category' => $form->getVar('news_category'),
-		))->replace();
+		# Update news
+		$news = $this->news ? $this->news : GWF_News::blank();
+		$news->setVar('news_category', $form->getVar('news_category'));
+		$news->replace();
+
+		# Update texts
 		foreach ($_REQUEST['form']['iso'] as $iso => $data)
 		{
 			$title = trim($data['newstext_title']);
