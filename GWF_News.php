@@ -12,6 +12,9 @@ final class GWF_News extends GDO
 	### Comments ###
 	################
 	use GWF_CommentedObject;
+	public function gdoCommentTable() { return GWF_NewsComments::table(); }
+	public function gdoCommentsEnabled() { return $this->isVisible() && $this->gdoCommentTable()->gdoEnabled(); }
+	public function gdoCanComment(GWF_User $user) { return true; }
 	
 	###########
 	### GDO ###
@@ -38,7 +41,7 @@ final class GWF_News extends GDO
 	 */
 	public function getCategory() { return $this->getValue('news_category'); }
 	public function getCategoryID() { return $this->getVar('news_category'); }
-	public function getVisible() { return $this->getVar('news_visible') === '1'; }
+	public function isVisible() { return $this->getVar('news_visible') === '1'; }
 	public function getSentDate() { return $this->getVar('news_sent'); }
 	public function getCreateDate() { return $this->getVar('news_created'); }
 	/**
@@ -46,6 +49,12 @@ final class GWF_News extends GDO
 	 */
 	public function getCreator() { return $this->getValue('news_creator'); }
 	public function getCreatorID() { return $this->getVar('news_creator'); }
+	
+	### Perm ###
+	public function canEdit(GWF_User $user)
+	{
+		return true;
+	}
 	
 	#############
 	### Texts ###
@@ -62,6 +71,12 @@ final class GWF_News extends GDO
 		return $text->gdoColumn('newstext_message')->value($text->getMessage())->renderCell();
 	}
 
+	public function renderCard()
+	{
+		return GWF_Template::modulePHP('News', 'card/gwf_news.php', ['gdo'=>$this]);
+	}
+	
+	
 	###################
 	### Translation ###
 	###################

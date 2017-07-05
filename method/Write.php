@@ -21,13 +21,13 @@ final class News_Write extends GWF_MethodForm
 	
 	public function init()
 	{
-		$this->news = GWF_News::getById(Common::getRequestString('news_id'));
+		$this->news = GWF_News::getById(Common::getRequestString('id'));
 	}
 	
 	public function createForm(GWF_Form $form)
 	{
 		$news = GWF_News::table();
-		$text = GWF_NewsText::table();
+// 		$text = GWF_NewsText::table();
 		
 		# Category select
 		$form->addFields(array(
@@ -53,6 +53,7 @@ final class News_Write extends GWF_MethodForm
 				if ($text = $this->news->getText($iso, false))
 				{
 					$title->value($text->getTitle());
+					$message->value($text->getMessage());
 				}
 			}
 			# Add
@@ -75,7 +76,7 @@ final class News_Write extends GWF_MethodForm
 				GDO_Submit::make('preview'),
 			));
 			
-			if (!$this->news->getVisible())
+			if (!$this->news->isVisible())
 			{
 				$form->addField(GDO_Submit::make('visible'));
 			}
@@ -115,5 +116,11 @@ final class News_Write extends GWF_MethodForm
 			}
 		}
 		return $this->message('msg_news_created');
+	}
+	
+	public function onSubmit_visible(GWF_Form $form)
+	{
+		$this->news->saveVar('news_visible', '1');
+		return $this->message('msg_news_visible');
 	}
 }
