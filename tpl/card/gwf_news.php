@@ -3,7 +3,7 @@
 $user = GWF_User::current();
 $comments = $gdo->gdoCommentTable();
 ?>
-<md-card flex layout-fill>
+<md-card flex="100">
   <md-card-title>
     <md-card-title-text>
       <span class="md-headline">
@@ -13,10 +13,10 @@ $comments = $gdo->gdoCommentTable();
     </md-card-title-text>
   </md-card-title>
   <gwf-div></gwf-div>
-  <md-card-content>
+  <md-card-content flex>
     <?php echo $gdo->displayMessage(); ?>
   </md-card-content>
-
+  <gwf-div></gwf-div>
   <md-card-actions layout="row" layout-align="end center">
 <?php if ($gdo->gdoCommentsEnabled()) : ?>
 <?php $count = $gdo->gdoCommentCount(); ?>
