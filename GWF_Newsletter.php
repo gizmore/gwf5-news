@@ -13,4 +13,10 @@ final class GWF_Newsletter extends GDO
 		);
 	}
 	
+	/**
+	 * @param string $email
+	 * @return GWF_Newsletter
+	 */
+	public static function getByEmail(string $email) { return self::getBy('newsletter_email', $email); }
+	
 }

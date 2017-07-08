@@ -3,7 +3,7 @@
 $user = GWF_User::current();
 $comments = $gdo->gdoCommentTable();
 ?>
-<md-card>
+<md-card flex layout-fill>
   <md-card-title>
     <md-card-title-text>
       <span class="md-headline">

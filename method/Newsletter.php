@@ -5,6 +5,15 @@
  */
 final class News_Newsletter extends GWF_MethodForm
 {
+	public function execute()
+	{
+		$tVars = array(
+			'form' => $this->getForm(),
+			'response' => parent::execute(),
+		);
+		return $this->templatePHP('newsletter.php', $tVars);
+	}
+	
 	public function createForm(GWF_Form $form)
 	{
 		$users = GWF_User::table();

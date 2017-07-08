@@ -14,4 +14,12 @@ class News_List extends GWF_MethodQueryList
 		return $query->where('news_visible');
 	}
 	
+	public function execute()
+	{
+		$tVars = array(
+			'response' => parent::execute(),
+		);
+		return $this->templatePHP('news.php', $tVars);
+	}
+	
 }

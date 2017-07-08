@@ -25,7 +25,8 @@ final class GWF_News extends GDO
 			GDO_AutoInc::make('news_id'),
 			GDO_Category::make('news_category'),
 			GDO_Checkbox::make('news_visible')->notNull()->initial('0'),
-			GDO_DateTime::make('news_sent'),
+			GDO_DateTime::make('news_send')->label('news_sending'), # is in queue? (sending)
+			GDO_DateTime::make('news_sent')->label('news_sent'), # is out of queue? (sent)
 			GDO_CreatedAt::make('news_created'),
 			GDO_CreatedBy::make('news_creator'),
 		);
@@ -35,13 +36,14 @@ final class GWF_News extends GDO
 	### Getter ###
 	##############
 	public function getID() { return $this->getVar('news_id'); }
-	public function isSent() { return $this->getSentDate() !== null; }
+	public function isSent() { return $this->getSendDate() !== null; }
 	/**
 	 * @return GWF_Category
 	 */
 	public function getCategory() { return $this->getValue('news_category'); }
 	public function getCategoryID() { return $this->getVar('news_category'); }
 	public function isVisible() { return $this->getVar('news_visible') === '1'; }
+	public function getSendDate() { return $this->getVar('news_send'); }
 	public function getSentDate() { return $this->getVar('news_sent'); }
 	public function getCreateDate() { return $this->getVar('news_created'); }
 	/**
@@ -55,6 +57,8 @@ final class GWF_News extends GDO
 	{
 		return true;
 	}
+	
+	public function href_edit() { return href('News', 'Write', '&id='.$this->getID()); }
 	
 	#############
 	### Texts ###

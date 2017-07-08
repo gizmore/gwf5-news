@@ -14,6 +14,10 @@
  */
 final class News_Write extends GWF_MethodForm
 {
+	use GWF_MethodAdmin;
+	
+	public function getPermission() { return 'staff'; }
+	
 	/**
 	 * @var GWF_News
 	 */
@@ -21,7 +25,17 @@ final class News_Write extends GWF_MethodForm
 	
 	public function init()
 	{
-		$this->news = GWF_News::getById(Common::getRequestString('id'));
+		if ($id = Common::getRequestString('id'))
+		{
+			$this->news = GWF_News::table()->find($id);
+		}
+	}
+	
+	public function execute()
+	{
+		$response = parent::execute();
+		$newstabs = Module_News::instance()->renderAdminTabs();
+		return $this->renderNavBar('News')->add($newstabs)->add($response);
 	}
 	
 	public function createForm(GWF_Form $form)
@@ -31,10 +45,10 @@ final class News_Write extends GWF_MethodForm
 		
 		# Category select
 		$form->addFields(array(
-			$news->gdoColumn('news_created')->writable(false),
-			$news->gdoColumn('news_creator')->writable(false),
-			$news->gdoColumn('news_visible')->writable(false),
-			GDO_Divider::make('div1'),
+// 			$news->gdoColumn('news_created')->writable(false),
+// 			$news->gdoColumn('news_creator')->writable(false),
+// 			$news->gdoColumn('news_visible')->writable(false),
+// 			GDO_Divider::make('div1'),
 		));
 		
 		# Translation tabs
@@ -89,6 +103,12 @@ final class News_Write extends GWF_MethodForm
 				}
 			}
 			
+			if ($this->news->isSent())
+			{
+				$form->addField(GDO_NewsStatus::make('status')->gdo($this->news));
+			}
+				
+			
 			$form->withGDOValuesFrom($this->news);
 		}
 	}
@@ -115,12 +135,41 @@ final class News_Write extends GWF_MethodForm
 				))->replace();
 			}
 		}
-		return $this->message('msg_news_created');
+		
+		if ($this->news)
+		{
+			return $this->message('msg_news_edited')->add($this->renderForm());
+		}
+		
+		$hrefEdit = href('News', 'Write', '&id='.$news->getID());
+		return $this->message('msg_news_created')->add(GWF_Website::redirectMessage($hrefEdit));
 	}
 	
 	public function onSubmit_visible(GWF_Form $form)
 	{
 		$this->news->saveVar('news_visible', '1');
-		return $this->message('msg_news_visible');
+		$this->form = null;
+		return $this->message('msg_news_visible')->add($this->renderForm());
 	}
+	
+	public function onSubmit_invisible(GWF_Form $form)
+	{
+		$this->news->saveVar('news_visible', '0');
+		$this->form = null;
+		return $this->message('msg_news_invisible')->add($this->renderForm());
+	}
+	
+	############
+	### Mail ###
+	############
+	public function onSubmit_preview(GWF_Form $form)
+	{
+	}
+	
+	public function onSubmit_send(GWF_Form $form)
+	{
+		$this->news->saveVar('news_send', GWF_Time::getDate());
+		
+	}
+	
 }
