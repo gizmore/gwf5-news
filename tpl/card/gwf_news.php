@@ -20,7 +20,7 @@ $comments = $gdo->gdoCommentTable();
   <md-card-actions layout="row" layout-align="end center">
 <?php if ($gdo->gdoCommentsEnabled()) : ?>
 <?php $count = $gdo->gdoCommentCount(); ?>
-<?php echo GDO_Link::make('link_comments')->label('link_comments', [$count])->href(href('News', 'Comments', '&id='.$gdo->getID()))->renderCell(); ?>
+<?php echo GDO_Link::make('link_comments')->label('link_comments', [$count])->icon('feedback')->href(href('News', 'Comments', '&id='.$gdo->getID()))->renderCell(); ?>
 <?php endif; ?>
 <?php
 if ($gdo->canEdit($user))
@@ -29,7 +29,7 @@ if ($gdo->canEdit($user))
 }
 if ($gdo->gdoCanComment($user))
 {
-	echo GDO_Button::make('btn_write_comment')->href(href('News', 'WriteComment', '&id='.$gdo->getID()))->renderCell();
+	echo GDO_Button::make('btn_write_comment')->href(href('News', 'WriteComment', '&id='.$gdo->getID()))->icon('reply')->renderCell();
 	
 }
 

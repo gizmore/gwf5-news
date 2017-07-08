@@ -36,7 +36,9 @@ final class GWF_News extends GDO
 	### Getter ###
 	##############
 	public function getID() { return $this->getVar('news_id'); }
-	public function isSent() { return $this->getSendDate() !== null; }
+	public function isSent() { return $this->getSentDate() !== null; }
+	public function isSending() { return ($this->getSentDate() === null) && ($this->getSendDate() !== null); }
+	
 	/**
 	 * @return GWF_Category
 	 */
@@ -65,9 +67,15 @@ final class GWF_News extends GDO
 	#############
 	public function getTitle() { return $this->getTextVar('newstext_title'); }
 	public function getMessage() { return $this->getTextVar('newstext_message'); }
+
+	public function getTitleISO(string $iso) { return $this->getTextVarISO('newstext_title', $iso); }
+	public function getMessageISO(string $iso) { return $this->getTextVarISO('newstext_message', $iso); }
 	
 	public function getTextVar(string $key) { return $this->getText(GWF_Trans::$ISO)->getVar($key); }
 	public function getTextValue(string $key) { return $this->getText(GWF_Trans::$ISO)->getValue($key); }
+	
+	public function getTextVarISO(string $key, string $iso) { return $this->getText($iso)->getVar($key); }
+	public function getTextValueISO(string $key, string $iso) { return $this->getText($iso)->getValue($key); }
 	
 	public function displayMessage()
 	{

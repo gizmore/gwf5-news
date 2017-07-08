@@ -5,4 +5,5 @@ final class News_WriteComment extends Comments_Write
 	
 	public function hrefList() { return href('News', 'Comments', '&id='.$this->object->getID()); }
 	
+	public function isGuestAllowed() { return Module_News::instance()->cfgGuestComments(); }
 }

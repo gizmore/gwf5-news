@@ -3,6 +3,8 @@ class News_List extends GWF_MethodQueryList
 {
 	public function gdoTable() { return GWF_News::table(); }
 	
+	public function isGuestAllowed() { return Module_News::instance()->cfgGuestNews(); }
+	
 	public function gdoQuery()
 	{
 		$query = parent::gdoQuery();

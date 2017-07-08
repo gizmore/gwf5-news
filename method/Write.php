@@ -45,10 +45,11 @@ final class News_Write extends GWF_MethodForm
 		
 		# Category select
 		$form->addFields(array(
+			$news->gdoColumn('news_category'),
 // 			$news->gdoColumn('news_created')->writable(false),
 // 			$news->gdoColumn('news_creator')->writable(false),
 // 			$news->gdoColumn('news_visible')->writable(false),
-// 			GDO_Divider::make('div1'),
+			GDO_Divider::make('div_texts'),
 		));
 		
 		# Translation tabs
@@ -103,11 +104,7 @@ final class News_Write extends GWF_MethodForm
 				}
 			}
 			
-			if ($this->news->isSent())
-			{
-				$form->addField(GDO_NewsStatus::make('status')->gdo($this->news));
-			}
-				
+			$form->addField(GDO_NewsStatus::make('status'));
 			
 			$form->withGDOValuesFrom($this->news);
 		}
