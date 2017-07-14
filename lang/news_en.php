@@ -25,6 +25,7 @@ return array(
 ##################################################
 'ft_news_newsletter' => '[%s] Newsletter Subscription',
 'newsletter_subscribed' => 'I want to subscribe to the newsletter.',
+'newsletter_sub_guest_unknown' => 'For guests, the newsletter status cannot be determined.',
 'newsletter_info_subscribed' => 'You have subscribed to the newsletter. Check your %s to configure your newsletter options.',
 'newsletter_info_not_subscribed' => 'You do not have subscribed to the newsletter. Check your %s to configure your newsletter options.',
 'link_mail_settings' => 'Account Settings',

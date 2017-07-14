@@ -1,5 +1,5 @@
 <?php
-class News_List extends GWF_MethodQueryList
+class News_List extends GWF_MethodQueryCards
 {
 	public function gdoTable() { return GWF_News::table(); }
 	
