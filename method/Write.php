@@ -135,6 +135,8 @@ final class News_Write extends GWF_MethodForm
 		
 		if ($this->news)
 		{
+			$this->news->tempUnset('newstexts');
+			$this->news->recache();
 			return $this->message('msg_news_edited')->add($this->renderForm());
 		}
 		

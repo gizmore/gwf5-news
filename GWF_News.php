@@ -128,6 +128,7 @@ final class GWF_News extends GDO
 			$query->where("newstext_news=".$this->getID());
 			$cache = $query->exec()->fetchAllArray2dObject();
 			$this->tempSet('newstexts', $cache);
+			$this->recache();
 		}
 		return $cache;
 	}
