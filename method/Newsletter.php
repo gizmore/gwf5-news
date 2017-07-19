@@ -76,7 +76,7 @@ final class News_Newsletter extends GWF_MethodForm
 			GWF_Newsletter::blank($initial)->insert();
 			return $this->message('msg_newsletter_subscribed');
 		}
-		elseif (!$sub)
+		elseif (!$oldsub)
 		{
 			return $this->error('err_newsletter_not_subscribed');
 		}
