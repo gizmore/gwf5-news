@@ -20,6 +20,12 @@ final class News_Newsletter extends GWF_MethodForm
 	
 	public function execute()
 	{
+	    $tabs = Module_News::instance()->renderTabs();
+	    return $tabs->add($this->templateNewsletter());
+	}
+	
+	public function templateNewsletter()
+	{
 		$tVars = array(
 			'form' => $this->getForm(),
 			'response' => parent::execute(),

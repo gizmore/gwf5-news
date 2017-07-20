@@ -6,7 +6,7 @@
  * @since 2.0
  * @see GWF_NewsText
  */
-final class GWF_News extends GDO
+final class GWF_News extends GDO implements GWF_RSSItem
 {
 	################
 	### Comments ###
@@ -132,5 +132,34 @@ final class GWF_News extends GDO
 		}
 		return $cache;
 	}
+	
+	###############
+	### RSSItem ###
+	###############
+    public function getRSSTitle()
+    {
+        return $this->getTitle();
+    }
+
+    public function getRSSPubDate()
+    {
+        return $this->getValue('news_created');
+    }
+
+    public function getRSSGUID()
+    {
+        return $this->gdoHashcode();
+    }
+
+    public function getRSSLink()
+    {
+        return url('News', 'Comments', '&id='.$this->getID());
+    }
+
+    public function getRSSDescription()
+    {
+        return $this->getMessage();
+    }
+
 	
 }

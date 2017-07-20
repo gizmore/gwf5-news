@@ -30,9 +30,14 @@ final class Module_News extends GWF_Module
 	############
 	### Navs ###
 	############
+	public function renderTabs()
+	{
+	    return $this->templatePHP('tabs.php');
+	}
+	
 	public function renderAdminTabs()
 	{
-		return $this->templatePHP('admin_tabs.php');
+	    return $this->templatePHP('admin_tabs.php');
 	}
 	
 	public function onRenderFor(GWF_Navbar $navbar)

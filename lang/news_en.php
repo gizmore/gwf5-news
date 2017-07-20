@@ -2,6 +2,12 @@
 return array(
 ##################################################
 'link_write_news' => 'Write&nbsp;News',
+'link_news' => 'News',
+'link_newsfeed' => 'RSS',
+'link_newsletter' => 'Newsletter',
+##################################################
+'newsfeed_title' => '[%s] Newsfeed',
+'newsfeed_descr' => 'General newsfeed of %s',
 ##################################################
 'news_comments' => 'Allow news comments?',
 'news_guests' => 'Public news pages?',
