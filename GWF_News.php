@@ -126,7 +126,7 @@ final class GWF_News extends GDO
 		{
 			$query = GWF_NewsText::table()->select('newstext_lang, gwf_newstext.*');
 			$query->where("newstext_news=".$this->getID());
-			$cache = $query->exec()->fetchAllArray2dObject();
+			$cache = $query->exec()->fetchAllArrayAssoc2dObject();
 			$this->tempSet('newstexts', $cache);
 			$this->recache();
 		}

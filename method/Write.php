@@ -118,7 +118,7 @@ final class News_Write extends GWF_MethodForm
 		$news->replace();
 
 		# Update texts
-		foreach ($_REQUEST['form']['iso'] as $iso => $data)
+		foreach ($_POST['form']['iso'] as $iso => $data)
 		{
 			$title = trim($data['newstext_title']);
 			$message = trim($data['newstext_message']);
