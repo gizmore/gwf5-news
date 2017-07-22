@@ -10,4 +10,4 @@ if ($user->hasPermission('staff'))
 {
     $bar->addField(GDO_Link::make('link_write_news')->href(href('News', 'Write'))->icon('edit'));
 }
-echo $bar->renderCell();
+echo $bar->render();
