@@ -3,7 +3,7 @@
 $user = GWF_User::current();
 $comments = $gdo->gdoCommentTable();
 ?>
-<md-card flex="100">
+<md-card flex="100" class="md-whiteframe-8dp">
   <md-card-title>
     <md-card-title-text>
       <span class="md-headline">
@@ -18,21 +18,22 @@ $comments = $gdo->gdoCommentTable();
   </md-card-content>
   <gwf-div></gwf-div>
   <md-card-actions layout="row" layout-align="end center">
-<?php if ($gdo->gdoCommentsEnabled()) : ?>
-<?php $count = $gdo->gdoCommentCount(); ?>
-<?php echo GDO_Link::make('link_comments')->label('link_comments', [$count])->icon('feedback')->href(href('News', 'Comments', '&id='.$gdo->getID()))->renderCell(); ?>
-<?php endif; ?>
 <?php
 if ($gdo->canEdit($user))
 {
-	echo GDO_EditButton::make()->href(href('News', 'Write', '&id='.$gdo->getID()))->renderCell(); 
+	echo GDO_IconButton::make()->href(href('News', 'Write', '&id='.$gdo->getID()))->icon('edit')->renderCell(); 
 }
-if ($gdo->gdoCanComment($user))
+if ($gdo->gdoCommentsEnabled())
 {
-	echo GDO_Button::make('btn_write_comment')->href(href('News', 'WriteComment', '&id='.$gdo->getID()))->icon('reply')->renderCell();
-	
+    
+    $count = $gdo->gdoCommentCount();
+    echo GDO_Link::make('link_comments')->label('link_comments', [$count])->icon('feedback')->href(href('News', 'Comments', '&id='.$gdo->getID()))->renderCell();
+    if ($gdo->gdoCanComment($user))
+    {
+    	echo GDO_Button::make('btn_write_comment')->href(href('News', 'WriteComment', '&id='.$gdo->getID()))->icon('reply')->renderCell();
+    	
+    }
 }
-
 ?>
   </md-card-actions>
 
