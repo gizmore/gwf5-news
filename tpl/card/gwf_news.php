@@ -26,7 +26,7 @@ if ($gdo->canEdit($user))
 if ($gdo->gdoCommentsEnabled())
 {
     
-    $count = $gdo->gdoCommentCount();
+    $count = $gdo->getCommentCount();
     echo GDO_Link::make('link_comments')->label('link_comments', [$count])->icon('feedback')->href(href('News', 'Comments', '&id='.$gdo->getID()))->renderCell();
     if ($gdo->gdoCanComment($user))
     {
