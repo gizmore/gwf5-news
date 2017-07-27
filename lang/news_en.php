@@ -22,6 +22,7 @@ return array(
 'div_texts' => 'News Texts',
 'msg_news_created' => 'The news item has been created, but it´s still not visible.',
 'msg_news_visible' => 'The news item is now visible.',
+'msg_news_queue' => 'The news item has been moved to the mailqueue.',
 'newsletter_status_waiting' => 'The news item has not been put in the mail queue yet.',
 'newsletter_status_in_queue' => 'The news item is in the mail queue.',
 ##################################################

@@ -168,6 +168,7 @@ final class News_Write extends GWF_MethodForm
 	public function onSubmit_send(GWF_Form $form)
 	{
 		$this->news->saveVar('news_send', GWF_Time::getDate());
+		return $this->message('msg_news_queue')->add($this->renderForm());
 		
 	}
 	
