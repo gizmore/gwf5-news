@@ -5,6 +5,7 @@ return array(
 'link_news' => 'News',
 'link_newsfeed' => 'RSS',
 'link_newsletter' => 'Newsletter',
+'link_newsletters' => 'Newsletters',
 ##################################################
 'newsfeed_title' => '[%s] Newsfeed',
 'newsfeed_descr' => 'General newsfeed of %s',
